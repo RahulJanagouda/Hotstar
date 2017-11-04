@@ -29,7 +29,7 @@ public class VerticalListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case BANNER_VIEW_TYPE:
                 View bannerView = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.horizontal_list, parent, false);
-                return new HorizontalListViewHolder(bannerView);
+                return new BannerViewHolder(bannerView);
 
             case ROW_VIEW_TYPE:
                 View rowView = LayoutInflater.from(parent.getContext())
@@ -56,8 +56,8 @@ public class VerticalListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         switch (holder.getItemViewType()) {
             case BANNER_VIEW_TYPE:
-                HorizontalListViewHolder a
-                        = (HorizontalListViewHolder) holder;
+                BannerViewHolder a
+                        = (BannerViewHolder) holder;
                 a.horizontalList.
                         setLayoutManager(layoutManager);
 
@@ -67,9 +67,8 @@ public class VerticalListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 }
                 a.horizontalList.setHasFixedSize(true);
                 a.horizontalList.setNestedScrollingEnabled(false);
-
-                a.horizontalList
-                        .setAdapter(new HorizontalListAdapter());
+                a.horizontalList.setAdapter(new BannerAdapter());
+                a.horizontalListTitle.setVisibility(View.GONE);
                 break;
             case ROW_VIEW_TYPE:
                 HorizontalListViewHolder horizontalListViewHolder
@@ -97,17 +96,28 @@ public class VerticalListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemViewType(int position) {
-        return position==1?BANNER_VIEW_TYPE:ROW_VIEW_TYPE;
+        return position==0?BANNER_VIEW_TYPE:ROW_VIEW_TYPE;
     }
 
     class HorizontalListViewHolder extends RecyclerView.ViewHolder {
         RecyclerView horizontalList;
-
+        TextView horizontalListTitle;
         public HorizontalListViewHolder(View itemView) {
             super(itemView);
             horizontalList = itemView.findViewById(R.id.horizontalList);
+            horizontalListTitle = itemView.findViewById(R.id.horizontalListTitle);
         }
     }
 
+    class BannerViewHolder extends RecyclerView.ViewHolder {
+        RecyclerView horizontalList;
+        TextView horizontalListTitle;
+
+        public BannerViewHolder(View itemView) {
+            super(itemView);
+            horizontalList = itemView.findViewById(R.id.horizontalList);
+            horizontalListTitle = itemView.findViewById(R.id.horizontalListTitle);
+        }
+    }
 
 }
