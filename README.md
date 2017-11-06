@@ -1,0 +1,2 @@
+# Hotstar
+Sample Hotstar App
